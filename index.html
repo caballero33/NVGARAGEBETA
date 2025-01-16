@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Inicial NV</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #000; /* Fondo negro */
+        }
+
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff; /* Texto blanco */
+            margin-bottom: 30px;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .menu a {
+            text-decoration: none; /* Eliminar subrayado de los enlaces */
+        }
+
+        .menu button {
+            width: 250px;
+            height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            color: white; /* Letras blancas */
+            text-transform: uppercase;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .menu button:nth-child(odd) {
+            background-color: #000; /* Fondo negro para los botones impares */
+        }
+
+        .menu button:nth-child(even) {
+            background-color: #fff; /* Fondo blanco para los botones pares */
+            color: black; /* Letras negras para los botones con fondo blanco */
+        }
+
+        .menu button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Sombra blanca */
+        }
+
+        .menu button i {
+            font-size: 50px;
+            margin-bottom: 10px;
+            color: inherit; /* El color del ícono hereda el color del texto */
+        }
+
+        .menu button span {
+            display: block;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 768px) {
+    body {
+        padding: 20px; /* Agrega un pequeño margen interno */
+    }
+
+    .menu button {
+        width: 100%; /* Botones ocupan todo el ancho disponible */
+        height: auto; /* Ajusta la altura para que sea proporcional */
+        padding: 20px; /* Agrega espacio interno para mejor apariencia */
+        font-size: 14px; /* Reduce ligeramente el tamaño de la fuente */
+    }
+
+    .menu button i {
+        font-size: 40px; /* Reduce el tamaño de los iconos */
+    }
+
+    .menu button span {
+        font-size: 12px; /* Ajusta el tamaño del texto */
+    }
+
+    .menu {
+        gap: 15px; /* Reduce el espacio entre botones */
+    }
+
+    .header {
+        font-size: 20px; /* Ajusta el tamaño del título */
+        text-align: center; /* Centra el texto del título */
+        margin-bottom: 20px; /* Ajusta el margen inferior */
+    }
+}
+
+    </style>
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Título en la parte superior -->
+    <div class="header">
+        NV/ Garage
+    </div>
+
+    <!-- Menú de botones -->
+    <div class="menu">
+        <a href="Libreria.html">
+            <button>
+                <i class="fas fa-book"></i>
+                <span>.  Biblioteca NV</span>
+            </button>
+        </a>
+
+        <a href="Git.html">
+            <button>
+                <i class="fab fa-github"></i>
+                <span>.  GitHub</span>
+            </button>
+        </a>
+
+        <a href="Programas.html">
+            <button>
+                <i class="fas fa-podcast"></i>
+                <span>.  Programas</span>
+            </button>
+        </a>
+    </div>
+</body>
+</html>

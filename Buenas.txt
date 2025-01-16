@@ -1,0 +1,34 @@
+Buenas merari espero logre ver 
+toda la carpeta 
+si
+hola
+ajaja
+bueno ahora le explico lo que debe hacer en idea asi que ojo 
+/ Que es el apartado de git/
+
+github es como el facebook del programador la idea es que todos los miembros de NV tengan
+un git bien estructurado, ademas de ello poder compartir el mismo
+
+Usted debe crear una plantilla donde se puedan ver en forma de cajas espacios para 
+cada ususario donde deben tener los siguientes campos 
+
+- Nombre
+- Etiquetas (Las etiquetas deben ser predefinidas)
+- Link de github
+-  Foto de perfil
+
+estas cosas no las puede ingresar el usuario solo se podran ingresar de manera local
+por ejemplo si revisa el codigo de los programas yo cree un molde que uso como funcion
+desde el java script (en la etiqueta script) ingreso todo lo demas 
+
+(DUDAS?) // Puede ser creativa e usar lo que usted quiera. solo el disenio siempre
+blancos y negros de preferencia y todo dentro del mismo bloque osea usted
+<style>
+<script>
+<html>
+
+luego eso lo coloco en la web oficial para el deploy este entorno es solo virtual
+
+Fin. :) 
+
+OKS

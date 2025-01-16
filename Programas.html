@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Nodos - Programas</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+            background: #121212;
+            color: white;
+            overflow: hidden;
+        }
+
+        #nvLogo {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            z-index: 10;
+            cursor: pointer;
+        }
+
+        #mapContainer {
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(#181818, #121212);
+            position: relative;
+            overflow: hidden;
+            cursor: grab;
+        }
+
+        #map {
+            width: 3000px;
+            height: 2000px;
+            background-size: 100px 100px;
+            background-image: linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform-origin: 0 0;
+            opacity: 0;
+            animation: fadeIn 2s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .node {
+            position: absolute;
+            width: 200px;
+            height: 100px;
+            background: #1c1c1c;
+            border: 2px solid #444;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 10px;
+            color: white;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+
+        .node:hover {
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            transform: scale(1.05);
+            background-color: #0056b3;
+        }
+
+        .node i {
+            font-size: 24px;
+            margin: 10px;
+            color: rgb(255, 255, 255);
+        }
+
+        #infoBox {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+            display: none;
+            max-width: 300px;
+            z-index: 10;
+        }
+
+        #infoBox h2 {
+            margin: 0 0 10px 0;
+            font-size: 1.5em;
+            color: #ffffff;
+        }
+
+        #infoBox p {
+            margin: 5px 0;
+        }
+
+        #infoBox a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        #infoBox a:hover {
+            text-decoration: underline;
+        }
+
+        #closeButton {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    z-index: 15;
+    transition: background 0.3s, transform 0.2s;
+}
+
+#closeButton:hover {
+    background: rgba(255, 0, 0, 0.9);
+    transform: scale(1.1);
+}
+
+/* Estilos para el carrusel */
+.carousel {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.carousel-images {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.carousel-image {
+    width: 100%;
+    height: auto;
+}
+
+.carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.carousel-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+#carouselPrev {
+    left: 10px;
+}
+
+#carouselNext {
+    right: 10px;
+}
+
+    </style>
+</head>
+<body>
+    <div id="nvLogo" onclick="goToMenu()">NV/</div>
+    <div id="mapContainer">
+        <div id="map">
+            <div class="node" id="mainNode">
+                <i class="fas fa-mug-hot"></i> HTML, CSS y JS
+            </div>
+            <div class="node" id="pythonNode">
+                <i class="fas fa-flask"></i> Python
+            </div>
+            <div class="node" id="jsNode">
+                <i class="fas fa-terminal"></i> JS Avanzado
+            </div>
+            <div class="node" id="dartNode">
+                <i class="fas fa-mobile-screen"></i> Dart & Flutter
+            </div>
+            <div class="node" id="ScnNode">
+                <i class="fas fa-microchip"></i> Ciencias y Matemáticas
+            </div>
+        </div>
+    </div>
+    
+
+    <!-- Información del nodo -->
+    <div id="infoBox" style=" text-align: center;">        <button id="closeInfoBox" style="position: absolute; top: 10px; right: 10px;"> X </button>
+        <h2 id="infoTitle">Información</h2>
+        <hr style="margin: 15px 0;"> <!-- Separador -->
+        <p id="infoStatus" style="font-weight: bold; padding: 10px;">Estado: Activo</p>
+        <hr style="margin: 15px 0;"> <!-- Separador -->
+        <p id="infoDescription">Descripción del curso</p>
+        <hr style="margin: 15px 0;"> <!-- Separador -->
+        <a id="infoLink" href="#" target="_blank">Inscribirse</a>
+        <div style="box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); margin: 20px ;"></div>
+
+        <!-- Carrusel de imágenes dentro del infoBox -->
+        <div id="carousel" class="carousel">
+            <button id="carouselPrev" class="carousel-button">&lt;</button>
+            <div id="carouselImages" class="carousel-images">
+                <img src="image1.jpg" alt="Imagen 1" class="carousel-image">
+                <img src="image2.jpg" alt="Imagen 2" class="carousel-image">
+                <img src="image3.jpg" alt="Imagen 3" class="carousel-image">
+            </div>
+            <button id="carouselNext" class="carousel-button">&gt;</button>
+        </div>
+    </div>
+    <button id="closeButton">X</button>
+
+
+    <script>
+        const nodes = {
+            mainNode: {
+                title: "HTML, CSS y JS",
+                description: "Aprende a crear sitios web desde cero con tecnologías esenciales para el desarrollo web.",
+                link: "https://example.com/html-css-js",
+                status: "Activo (Inscripcion Cerrada)",
+                images: [
+                    "https://res.cloudinary.com/dcm2dsjov/image/upload/v1736970771/f8b6aaf5-7533-44f7-928a-9480c7f942f5_avwto6.jpg",
+                    "https://res.cloudinary.com/dcm2dsjov/image/upload/v1736970772/da6495ef-b8cf-4388-a470-d75d2571536c_leisyy.jpg",
+                    "https://res.cloudinary.com/dcm2dsjov/image/upload/v1736970770/1706cfb2-916c-4665-9351-38b3f81ede33_fnzgdy.jpg"
+                ]
+            },
+            pythonNode: {
+                title: "Python",
+                description: "Curso completo de Python para todos los niveles.",
+                link: "https://example.com/python",
+                status: "Activo (Inscripcion Cerrada)"
+
+            },
+            jsNode: {
+                title: "JS Avanzado",
+                description: "Explora conceptos avanzados y frameworks modernos en JavaScript.",
+                link: "https://example.com/js-avanzado",
+                status: "Inactivo (Inscripcion Abierta)"
+            },
+            dartNode: {
+                title: "Dart & Flutter",
+                description: "Desarrollo de aplicaciones móviles con Flutter.",
+                link: "https://example.com/dart-flutter",
+                status: "Activo (Inscripcion Cerrada)"
+            },
+            ScnNode: {
+                title: "Ciencias",
+                description: "Ciencias Matematica e Informatica en nuestro programa de ciencias.",
+                link: "https://example.com/dart-flutter",
+                status: "Inactivo (Inscripcion Abierta)"
+            }
+        };
+    
+        // Controlar el carrusel
+        let currentImageIndex = 0;
+    
+        const images = document.querySelectorAll(".carousel-image");
+        const totalImages = images.length;
+        const carouselImages = document.getElementById("carouselImages");
+    
+        document.getElementById("carouselNext").addEventListener("click", () => {
+            if (currentImageIndex < totalImages - 1) {
+                currentImageIndex++;
+            } else {
+                currentImageIndex = 0; // Volver al inicio
+            }
+            updateCarousel();
+        });
+    
+        document.getElementById("carouselPrev").addEventListener("click", () => {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+            } else {
+                currentImageIndex = totalImages - 1; // Volver al final
+            }
+            updateCarousel();
+        });
+    
+        function updateCarousel() {
+            const offset = -currentImageIndex * 100;
+            carouselImages.style.transform = `translateX(${offset}%)`;
+        }
+    
+        const infoBox = document.getElementById("infoBox");
+        const infoTitle = document.getElementById("infoTitle");
+        const infoStatus = document.getElementById("infoStatus");
+        const infoDescription = document.getElementById("infoDescription");
+        const infoLink = document.getElementById("infoLink");
+    
+        document.getElementById("closeButton").addEventListener("click", () => {
+            window.location.href = "index.html"; 
+        });
+    
+        window.onload = () => {
+            // Posición inicial del mapa para centrar los cursos
+            const initialX = -1000; // Ajusta este valor según la posición de los nodos
+            const initialY = -500;  // Ajusta este valor según la posición de los nodos
+    
+            // Centrar el mapa en la posición deseada
+            const map = document.getElementById("map");
+            map.style.left = `${initialX}px`;
+            map.style.top = `${initialY}px`;
+    
+            // Opcional: Restablecer el zoom inicial
+            map.style.transform = "scale(1)";
+        };
+    
+        document.querySelectorAll(".node").forEach(node => {
+            node.addEventListener("click", () => {
+                const data = nodes[node.id];
+                if (data) {
+                    infoTitle.textContent = data.title;
+                    infoStatus.textContent = `Estado: ${data.status}`;
+                    infoDescription.textContent = data.description;
+                    infoLink.href = data.link;
+    
+                    // Crear el carrusel de imágenes
+                    const carouselImagesContainer = document.getElementById("carouselImages");
+                    carouselImagesContainer.innerHTML = ''; // Limpiar las imágenes anteriores
+    
+                    if (data.images) {
+                        data.images.forEach(imageUrl => {
+                            const imgElement = document.createElement("img");
+                            imgElement.src = imageUrl;
+                            imgElement.classList.add("carousel-image");
+                            carouselImagesContainer.appendChild(imgElement);
+                        });
+                        // Resetear el índice de la imagen actual
+                        currentImageIndex = 0;
+                        updateCarousel();
+                    }
+    
+                    infoBox.style.display = "block";
+                }
+            });
+        });
+    
+        const mapContainer = document.getElementById("mapContainer");
+        const map = document.getElementById("map");
+        let isDragging = false;
+        let startX, startY, scale = 1;
+    
+        // Movimiento interactivo
+        mapContainer.addEventListener("mousedown", (e) => {
+            isDragging = true;
+            startX = e.clientX - map.offsetLeft;
+            startY = e.clientY - map.offsetTop;
+            mapContainer.style.cursor = "grabbing";
+        });
+    
+        mapContainer.addEventListener("mousemove", (e) => {
+            if (isDragging) {
+                map.style.left = `${e.clientX - startX}px`;
+                map.style.top = `${e.clientY - startY}px`;
+            }
+        });
+    
+        mapContainer.addEventListener("mouseup", () => {
+            isDragging = false;
+            mapContainer.style.cursor = "grab";
+        });
+    
+        mapContainer.addEventListener("mouseleave", () => {
+            isDragging = false;
+            mapContainer.style.cursor = "grab";
+        });
+    
+        // Zoom con scroll
+        mapContainer.addEventListener("wheel", (e) => {
+            e.preventDefault();
+            const zoomIntensity = 0.1;
+            scale += e.deltaY > 0 ? -zoomIntensity : zoomIntensity;
+            scale = Math.min(Math.max(scale, 0.5), 2); // Limitar el zoom
+            map.style.transform = `scale(${scale})`;
+        });
+    
+        // Touch events para soporte táctil
+        mapContainer.addEventListener("touchstart", (e) => {
+            isDragging = true;
+            const touch = e.touches[0];
+            startX = touch.clientX - map.offsetLeft;
+            startY = touch.clientY - map.offsetTop;
+        });
+    
+        mapContainer.addEventListener("touchmove", (e) => {
+            if (isDragging) {
+                const touch = e.touches[0];
+                map.style.left = `${touch.clientX - startX}px`;
+                map.style.top = `${touch.clientY - startY}px`;
+            }
+        });
+    
+        mapContainer.addEventListener("touchend", () => {
+            isDragging = false;
+        });
+    
+        function goToMenu() {
+            alert("Volviendo al menú principal...");
+            // Aquí podrías redirigir a otra página, por ejemplo:
+            // window.location.href = "menu.html";
+        }
+    
+        window.onload = () => {
+            const nodes = document.querySelectorAll(".node");
+            const arcCenterX = window.innerWidth / 2; // Centro horizontal del arco
+            const arcCenterY = window.innerHeight / 2; // Centro vertical del arco
+            const radius = 300; // Radio del arco
+            const angleStep = Math.PI / 3; // Ángulo de separación entre nodos (en radianes)
+    
+            // Aseguramos que haya 5 nodos
+            const totalNodes = nodes.length;
+    
+            // Calculamos las posiciones de los nodos a lo largo del arco
+            nodes.forEach((node, index) => {
+                const angle = angleStep * index - (Math.PI / 3); // Ajustamos el ángulo para formar un arco
+                const x = arcCenterX + radius * Math.cos(angle);
+                const y = arcCenterY + radius * Math.sin(angle);
+    
+                node.style.left = `${x - node.offsetWidth / 2}px`; // Centrar el nodo horizontalmente
+                node.style.top = `${y - node.offsetHeight / 2}px`; // Centrar el nodo verticalmente
+            });
+        };
+
+// Seleccionar el botón de cierre del cuadro de diálogo
+const closeInfoBoxButton = document.getElementById("closeInfoBox");
+
+// Agregar funcionalidad al botón de cierre
+closeInfoBoxButton.addEventListener("click", () => {
+    infoBox.style.display = "none"; // Ocultar el cuadro de diálogo
+});     
+    </script>
+    
+</body>
+</html>

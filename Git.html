@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Git</title>
+    <script src="https://kit.fontawesome.com/99a9f08c73.js" crossorigin="anonymous"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        /* Estilos para centrar el contenido */
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000; /* Fondo negro */
+            color: #fff; /* Texto blanco */
+        }
+        .cont-usuario{
+            display: flex;
+            gap: 20px;
+        }
+        h1{
+            text-align: center;
+            color:white;
+            margin-bottom: 20px;
+        }
+        .usuario {
+            position: relative;
+            text-align: center;
+            background-color: #222; /* Fondo ligeramente oscuro para el contenedor */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(255, 255, 255, 0.1);
+        }
+
+        .name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff; /* Texto blanco */
+            margin: 20px 0;
+        }
+
+        .error-icon {
+            font-size: 50px;
+            color: #fff; /* Ícono blanco */
+        }
+
+        /* Estilo para el icono del gatito */
+        .foto {
+            border-radius: 50%;
+            width: 200px; /* Cambia este valor al tamaño que desees */
+            height: 200px; /* Cambia este valor al tamaño que desees */
+            object-fit: cover;
+        }
+        ul{
+            list-style: none;  
+        }
+        li{
+            float: left;
+            margin-right: 5px;
+        }
+
+        .usuario a{
+            position: absolute;
+            top:1px; right:.5px;
+            padding: .7rem 1rem;
+            font-size: 18px;
+        }
+        .usuario:hover {
+        background-color: #333; /* Fondo más claro */
+        box-shadow: 0 8px 12px rgba(255, 255, 255, 0.3); /* Más brillo */
+        transform: scale(1.05); /* Aumenta ligeramente el tamaño */
+    }
+    header {
+        background-color: #1f1f1f;
+        padding: 1rem;
+        text-align: center;
+	    margin-bottom:60px;
+        width: 100%;
+        }
+
+        header h1 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 2rem;
+        color: #ffffff;
+        margin: 0;
+        }
+
+    </style>
+</head>
+
+<header>
+    <h1>Github NV/</h1>
+</header>
+
+<body>
+    <h1>¡Comparte Tu Repositorio!</h1>
+
+    <div class="cont-usuario">
+        <div class="usuario">
+            <a href="https://github.com/mers-argueta"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            <img src="https://res.cloudinary.com/dfrrujrog/image/upload/v1737046092/foto_novwz6.jpg" alt="foto de usuario" class="foto">
+            <p class="name">Merari Argueta</p>
+            <ul>
+                <!--Html:https://res.cloudinary.com/dfrrujrog/image/upload/v1737046090/tecno_html_xbryvk.png
+                    Css:https://res.cloudinary.com/dfrrujrog/image/upload/v1737046090/tecno_css_skdmzh.png
+                    Javascript:https://res.cloudinary.com/dfrrujrog/image/upload/v1737046090/tecno_js_xxzfyk.png
+                    python:https://res.cloudinary.com/dfrrujrog/image/upload/v1737046090/tecno_python_zk8tx2.png-->
+                <!--Html:-->
+                <li><img src="https://res.cloudinary.com/dfrrujrog/image/upload/v1737046090/tecno_html_xbryvk.png" alt="" height="30px"></li>
+                <!--Css-->
+                <li><img src="https://res.cloudinary.com/dfrrujrog/image/upload/v1737046090/tecno_css_skdmzh.png" alt="" height="30px"></li>
+                <!--Js-->
+                <li><img src="https://res.cloudinary.com/dfrrujrog/image/upload/v1737046090/tecno_js_xxzfyk.png" alt="" height="30px"></li>
+                <!--python-->
+                <li><img src="https://res.cloudinary.com/dfrrujrog/image/upload/v1737046090/tecno_python_zk8tx2.png" alt="" height="30px"></li>
+            </ul>
+        </div>
+
+        <div class="cont-usuario">
+            <div class="usuario">
+                <a href="https://github.com/caballero33"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                <img src="https://avatars.githubusercontent.com/u/82402877?v=4" alt="foto de usuario" class="foto">
+                <p class="name">Joseph Alcerro</p>
+                <ul>
+                    <li><img src="https://res.cloudinary.com/dfrrujrog/image/upload/v1737046090/tecno_html_xbryvk.png" alt="" height="30px"></li>
+                    <li><img src="https://res.cloudinary.com/dfrrujrog/image/upload/v1737046090/tecno_css_skdmzh.png" alt="" height="30px"></li>
+                    <li><img src="https://res.cloudinary.com/dfrrujrog/image/upload/v1737046090/tecno_js_xxzfyk.png" alt="" height="30px"></li>
+                    <li><img src="https://res.cloudinary.com/dfrrujrog/image/upload/v1737046090/tecno_python_zk8tx2.png" alt="" height="30px"></li>
+                </ul>
+            </div>
+    </div>
+</body>
+</html>
