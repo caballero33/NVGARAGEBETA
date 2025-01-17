@@ -23,11 +23,6 @@
             display: flex;
             gap: 20px;
         }
-        h1{
-            text-align: center;
-            color:white;
-            margin-bottom: 20px;
-        }
         .usuario {
             position: relative;
             text-align: center;
@@ -89,6 +84,66 @@
         color: #ffffff;
         margin: 0;
         }
+	@media (max-width: 991px) {
+        .cont-usuario {
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        .usuario {
+            width: 250px;
+            padding: 20px;
+        }
+        .foto {
+            width: 180px;
+            height: 180px;
+        }
+        h1 {
+            font-size: 1.8rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        header h1 {
+            font-size: 1.5rem;
+        }
+        .usuario {
+            padding: 15px;
+        }
+        .name {
+            font-size: 20px;
+        }
+        .foto {
+            width: 150px;
+            height: 150px;
+        }
+    }
+
+    @media (max-width: 450px) {
+        header h1 {
+            font-size: 1.2rem;
+        }
+        h1 {
+            font-size: 1.4rem;
+        }
+        .usuario {
+            width: 200px;
+            padding: 10px;
+        }
+        .name {
+            font-size: 16px;
+        }
+        .foto {
+            width: 120px;
+            height: 120px;
+        }
+        ul {
+            text-align: center;
+        }
+        li {
+            margin-right: 3px;
+        }
+    }
 
     </style>
 </head>
@@ -98,6 +153,9 @@
 </header>
 
 <body>
+    <div style="position: fixed; top: 20px; right: 10px;">
+        <button onclick="window.history.back()" style="background: linear-gradient(45deg, #ff4b2b, #ff416c); color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-size: 1em;">Salir</button>
+    </div>
     <h1>¡Comparte Tu Repositorio!</h1>
 
     <div class="cont-usuario">
